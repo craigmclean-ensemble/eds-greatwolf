@@ -52,6 +52,14 @@ export default function decorate(block) {
 
   const posterSrc = data?.['video-thumb'] || '';
   const optimizedPoster = `${posterSrc}?width=750&format=webply&optimize=medium`;
+  if (optimizedPoster) {
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'image';
+    link.href = optimizedPoster;
+    link.setAttribute('fetchpriority', 'high');
+    document.head.appendChild(link);
+  }
 
   video.poster = optimizedPoster;
   video.autoplay = true;
