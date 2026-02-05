@@ -49,7 +49,11 @@ export default function decorate(block) {
   bannerDiv.className = 'banner';
 
   const video = document.createElement('video');
-  video.poster = data?.['video-thumb'] || '';
+
+  const posterSrc = data?.['video-thumb'] || '';
+  const optimizedPoster = `${posterSrc}?width=750&format=webply&optimize=medium`;
+
+  video.poster = optimizedPoster;
   video.autoplay = true;
   video.loop = true;
   video.muted = true;
@@ -80,5 +84,5 @@ export default function decorate(block) {
           createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])
         )
     );
-  block.replaceChildren(ul);
+  block.replaceChildren(bannerDiv);
 }
