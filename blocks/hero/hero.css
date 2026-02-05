@@ -3,35 +3,103 @@
   padding: 0;
 }
 
-.hero {
-  position: relative;
-  padding: 40px 24px;
-  min-height: 300px;
-}
+.banner {
+  --heading-font-family: 'gupter', serif;
 
-.hero h1 {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--background-color);
-}
+  height: max-content;
 
-.hero picture {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  object-fit: cover;
-  box-sizing: border-box;
-}
+  video {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
 
-.hero img {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-}
+  .banner-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    width: 100%;
+    height: calc(100% - 32px);
+    display: flex;
+    flex-direction: column;
+    margin: 32px;
 
-@media (width >= 900px) {
-  .hero {
-    padding: 40px 32px;
+    div {
+      width: 100%;
+    }
+
+    /* logo */
+    .banner-first-element {
+      flex: 2;
+    }
+
+    /* header & button */
+    .banner-remaining-elements {
+      flex: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      color: white;
+      gap: 96px;
+    }
+
+    strong {
+      text-transform: uppercase;
+      font-family: var(--heading-font-family);
+      font-size: 96px;
+      line-height: 1;
+    }
+
+    .button-container > a {
+      background-color: #f6b41a;
+      font-size: 16px;
+      font-weight: 700;
+      color: #1c3750;
+      padding: 20px 20px 20px 40px;
+      border-width: 0;
+      display: inline-flex;
+      align-items: center;
+      transition:
+        background-color 0.2s,
+        padding 0.2s ease-in-out;
+      text-decoration: none;
+
+      span {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        &::after {
+          content: '';
+          display: inline-block;
+          min-width: 20px;
+          height: 16px;
+          /* stylelint-disable-next-line property-no-vendor-prefix */
+          -webkit-mask-image: url('../../icons/arrow.svg');
+          mask-image: url('../../icons/arrow.svg');
+          mask-repeat: no-repeat;
+          mask-size: contain;
+          mask-position: right;
+          align-self: center;
+          background-color: currentcolor;
+          opacity: 0;
+          margin-left: 0;
+          transition: all 0.2s ease-in-out;
+        }
+      }
+
+      &:hover {
+        background-color: rgb(194 154 42);
+        padding: 20px 20px 20px 30px;
+
+        span::after {
+          opacity: 1;
+          margin-left: 10px;
+        }
+      }
+    }
   }
 }
