@@ -1,0 +1,6 @@
+.promotion.block {
+  > div {
+    display: flex;
+    flex-direction: row;
+  }
+}
