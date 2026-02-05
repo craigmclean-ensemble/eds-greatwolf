@@ -68,4 +68,15 @@ export default function decorate(block) {
   bannerDiv.appendChild(contentDiv);
 
   block.appendChild(bannerDiv);
+
+  bannerDiv
+    .querySelectorAll('picture > img')
+    .forEach((img) =>
+      img
+        .closest('picture')
+        .replaceWith(
+          createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])
+        )
+    );
+  block.replaceChildren(ul);
 }
