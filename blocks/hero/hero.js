@@ -1,3 +1,5 @@
+import { createOptimizedPicture } from '../../scripts/aem.js';
+
 export default function decorate(block) {
   const contentDiv = document.createElement('div');
   contentDiv.className = 'banner-content';
