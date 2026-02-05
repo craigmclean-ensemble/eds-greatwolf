@@ -20,9 +20,10 @@
     height: auto;
     object-fit: cover;
     aspect-ratio: 1;
+    min-height: 1px;
 
     @media (width >= 768px) {
-      aspect-ratio: auto;
+      aspect-ratio: 16/9 !important;
     }
   }
 

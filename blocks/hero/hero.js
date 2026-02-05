@@ -66,6 +66,8 @@ export default function decorate(block) {
   video.loop = true;
   video.muted = true;
   video.playsInline = true;
+  video.setAttribute('width', '100%');
+  video.setAttribute('height', '100%');
 
   const source = document.createElement('source');
   source.src = data?.['video-large'] || '';
