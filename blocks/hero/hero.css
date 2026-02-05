@@ -6,33 +6,79 @@
 .banner {
   --heading-font-family: 'gupter', serif;
 
-  height: max-content;
+  position: relative;
+  height: auto;
+  overflow: hidden;
+
+  * {
+    box-sizing: border-box;
+  }
 
   video {
     display: block;
     width: 100%;
     height: auto;
     object-fit: cover;
+    aspect-ratio: 1;
+
+    @media (width >= 768px) {
+      aspect-ratio: auto;
+    }
   }
 
   .banner-content {
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 16px;
+    width: auto;
+    height: auto;
     z-index: 3;
-    width: 100%;
-    height: calc(100% - 32px);
     display: flex;
     flex-direction: column;
-    margin: 32px;
+
+    @media (width >= 1024px) {
+      inset: 32px;
+    }
 
     div {
       width: 100%;
     }
 
+    .banner-first-element,
+    .banner-remaining-elements {
+      min-height: 0;
+      max-width: 100%;
+    }
+
     /* logo */
     .banner-first-element {
-      flex: 2;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      min-width: 0;
+
+      @media (width >= 768px) {
+        flex: 1;
+        justify-content: flex-start;
+        width: 100%;
+      }
+
+      p {
+        margin: 0;
+        height: 100%;
+      }
+
+      picture {
+        display: block;
+        height: 100%;
+      }
+
+      img {
+        display: block;
+        max-width: 200px;
+        height: 100%;
+        max-height: 200px;
+        width: auto;
+      }
     }
 
     /* header & button */
@@ -43,61 +89,89 @@
       align-items: center;
       text-align: center;
       color: white;
-      gap: 96px;
+      gap: 48px;
+      min-height: 0;
+      justify-content: center;
+
+      @media (width >= 1024px) {
+        gap: 64px;
+      }
     }
 
     strong {
       text-transform: uppercase;
       font-family: var(--heading-font-family);
-      font-size: 96px;
+      font-size: 48px;
       line-height: 1;
-    }
 
-    .button-container > a {
-      background-color: #f6b41a;
-      font-size: 16px;
-      font-weight: 700;
-      color: #1c3750;
-      padding: 20px 20px 20px 40px;
-      border-width: 0;
-      display: inline-flex;
-      align-items: center;
-      transition:
-        background-color 0.2s,
-        padding 0.2s ease-in-out;
-      text-decoration: none;
-
-      span {
-        position: relative;
-        display: flex;
-        align-items: center;
-
-        &::after {
-          content: '';
-          display: inline-block;
-          min-width: 20px;
-          height: 16px;
-          /* stylelint-disable-next-line property-no-vendor-prefix */
-          -webkit-mask-image: url('../../icons/arrow.svg');
-          mask-image: url('../../icons/arrow.svg');
-          mask-repeat: no-repeat;
-          mask-size: contain;
-          mask-position: right;
-          align-self: center;
-          background-color: currentcolor;
-          opacity: 0;
-          margin-left: 0;
-          transition: all 0.2s ease-in-out;
-        }
+      @media (width >= 1024px) {
+        font-size: 64px;
       }
 
-      &:hover {
-        background-color: rgb(194 154 42);
-        padding: 20px 20px 20px 30px;
+      @media (width >= 1200px) {
+        font-size: 96px;
+      }
+    }
 
-        span::after {
-          opacity: 1;
-          margin-left: 10px;
+    .button-container {
+      width: 100%;
+
+      @media (width >= 768px) {
+        width: auto;
+      }
+
+      > a {
+        background-color: #f6b41a;
+        font-size: 16px;
+        font-weight: 700;
+        color: #1c3750;
+        padding: 20px 20px 20px 40px;
+        border-width: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          background-color 0.2s,
+          padding 0.2s ease-in-out;
+        text-decoration: none;
+        width: 100%;
+
+        @media (width >= 768px) {
+          width: auto;
+        }
+
+        span {
+          position: relative;
+          display: flex;
+          align-items: center;
+
+          &::after {
+            content: '';
+            display: inline-block;
+            min-width: 20px;
+            height: 16px;
+            /* stylelint-disable-next-line property-no-vendor-prefix */
+            -webkit-mask-image: url('../../icons/arrow.svg');
+            mask-image: url('../../icons/arrow.svg');
+            mask-repeat: no-repeat;
+            mask-size: contain;
+            mask-position: right;
+            align-self: center;
+            background-color: currentcolor;
+            opacity: 0;
+            margin-left: 0;
+            transition: all 0.2s ease-in-out;
+          }
+        }
+
+        &:hover {
+          background-color: rgb(194 154 42);
+          padding: 20px 20px 20px 30px;
+
+          span::after {
+            opacity: 1;
+            margin-left: 10px;
+          }
         }
       }
     }
