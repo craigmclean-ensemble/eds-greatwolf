@@ -14,10 +14,18 @@
   /* colors */
   --background-color: white;
   --light-color: #f8f8f8;
-  --dark-color: #505050;
+  --dark-color: #1c3750;
   --text-color: #131313;
   --link-color: #3b63fb;
   --link-hover-color: #1d3ecf;
+
+  /* buttons */
+  --button-light-variant: #f6b41a;
+  --button-light-variant-hover: rgb(194 154 42);
+  --button-light-variant-text: var(--dark-color);
+  --button-dark-variant: #cf0000;
+  --button-dark-variant-hover: rgb(152 0 0);
+  --button-dark-variant-text: white;
 
   /* fonts */
   --body-font-family: montserrat, montserrat-fallback, sans-serif;

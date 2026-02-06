@@ -127,10 +127,10 @@
       }
 
       > a {
-        background-color: #f6b41a;
+        background-color: var(--button-light-variant);
         font-size: 16px;
         font-weight: 700;
-        color: #1c3750;
+        color: var(--dark-color);
         padding: 20px 20px 20px 40px;
         border-width: 0;
         display: inline-flex;
@@ -171,7 +171,7 @@
         }
 
         &:hover {
-          background-color: rgb(194 154 42);
+          background-color: var(--button-light-variant-hover);
           padding: 20px 20px 20px 30px;
 
           span::after {
