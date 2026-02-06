@@ -4,8 +4,11 @@ function getMarkerPosition({ x = 0, y = 0 }) {
   const canvasWidth = 1228.6;
   const canvasHeight = 758.5;
 
-  const left = (x / canvasWidth) * 100;
-  const top = (y / canvasHeight) * 100;
+  const offsetX = 30;
+  const offsetY = 60;
+
+  const left = ((x + offsetX) / canvasWidth) * 100;
+  const top = ((y + offsetY) / canvasHeight) * 100;
 
   return {
     left: `${left.toFixed(4)}%`,
@@ -22,11 +25,20 @@ async function renderMarkers(map, path) {
       const markers = json.data;
 
       markers.forEach((locationData) => {
-        const markerPosition = getMarkerPosition({ x: locationData?.['data-x'], y: locationData?.['data-y'] });
+        const markerPosition = getMarkerPosition({
+          x: Number(locationData?.['data-x']),
+          y: Number(locationData?.['data-y']),
+        });
 
         const markerDiv = document.createElement('div');
-        markerDiv.classList.add('location-marker');
+        markerDiv.classList.add('location-marker-container');
         markerDiv.style = `left: ${markerPosition.left}; top: ${markerPosition.top};`;
+
+        const large = document.createElement('div');
+        large.classList.add('location-marker');
+        const small = document.createElement('div');
+        small.classList.add('location-marker-small');
+        markerDiv.append(large, small);
 
         map.append(markerDiv);
       });
