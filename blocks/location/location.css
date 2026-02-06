@@ -143,6 +143,11 @@
         font-weight: 500;
         padding: 24px;
         color: var(--dark-color);
+        width: 100%;
+        box-sizing: border-box;
+        white-space: normal;
+        overflow-wrap: break-word;
+        word-break: normal;
       }
 
       img {
