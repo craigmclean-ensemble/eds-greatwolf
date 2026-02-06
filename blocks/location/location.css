@@ -6,6 +6,15 @@
     gap: 48px;
   }
 
+  p {
+    strong {
+      font-weight: 400 !important;
+      font-size: 18px;
+    }
+
+    width: 100%;
+  }
+
   > div > div:first-child > div {
     display: flex;
     flex-direction: column;
@@ -21,15 +30,6 @@
       font-size: 64px;
       margin-bottom: 24px;
       white-space: nowrap;
-    }
-
-    p {
-      strong {
-        font-weight: 400 !important;
-        font-size: 18px;
-      }
-
-      width: 100%;
     }
   }
 

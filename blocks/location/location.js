@@ -105,7 +105,7 @@ async function renderMarkers(map, path) {
         if (locationData.image) {
           const img = document.createElement('img');
           img.classList.add('popup-image');
-          img.src = locationData.image;
+          img.src = `${locationData.image}?width=300&format=webply&optimize=medium`;
           img.alt = locationData['data-city'] || 'Lodge Image';
           popup.append(img);
         }
@@ -120,9 +120,7 @@ async function renderMarkers(map, path) {
         map.append(markerDiv);
       });
     }
-  } catch {
-    console.log(`Error Fetching ${path}`);
-  }
+  } catch {}
 }
 
 export default function decorate(block) {
