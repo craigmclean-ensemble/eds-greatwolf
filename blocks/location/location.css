@@ -60,6 +60,7 @@
     width: 0;
     height: 0;
     pointer-events: auto;
+    z-index: 1;
 
     .location-link {
       display: block;
@@ -128,6 +129,14 @@
       z-index: 10;
       overflow: hidden;
 
+      &.is-edge-left {
+        transform: translateX(-45%) translateY(10px);
+      }
+
+      &.is-edge-right {
+        transform: translateX(-55%) translateY(10px);
+      }
+
       p {
         font-size: 18px;
         line-height: 1;
@@ -145,11 +154,24 @@
     }
 
     @media (width >= 768px) {
+      &:hover {
+        z-index: 9;
+      }
+
       &:hover .marker-popup {
         opacity: 1;
         visibility: visible;
         transform: translateX(-50%) translateY(0);
         pointer-events: auto;
+        z-index: 10;
+      }
+
+      &:hover .marker-popup.is-edge-left {
+        transform: translateX(-45%) translateY(0);
+      }
+
+      &:hover .marker-popup.is-edge-right {
+        transform: translateX(-55%) translateY(0);
       }
     }
 
@@ -175,6 +197,10 @@
     width: 100%;
 
     li {
+      padding: 12px 0;
+      border: solid 1px rgb(210 215 220);
+      border-width: 1px 0 0;
+
       a {
         display: flex;
         flex-direction: column;

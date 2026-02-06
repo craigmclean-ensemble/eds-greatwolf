@@ -84,6 +84,15 @@ async function renderMarkers(map, path, block, contentDiv) {
       const json = await resp.json();
       const markers = json.data;
 
+      markers.sort((a, b) => {
+        const stateA = (a['data-state'] || '').toLowerCase();
+        const stateB = (b['data-state'] || '').toLowerCase();
+
+        if (stateA < stateB) return -1;
+        if (stateA > stateB) return 1;
+        return 0;
+      });
+
       const list = document.createElement('ul');
       list.classList.add('location-list');
 
@@ -123,6 +132,14 @@ async function renderMarkers(map, path, block, contentDiv) {
         title.textContent = `${locationData['data-city']}, ${lookupState(locationData['data-state'])}`;
         popup.append(title);
 
+        const leftPercent = parseFloat(markerPosition.left);
+
+        if (leftPercent < 5) {
+          popup.classList.add('is-edge-left');
+        } else if (leftPercent > 95) {
+          popup.classList.add('is-edge-right');
+        }
+
         anchor.append(large, small, popup);
         markerDiv.append(anchor);
         map.append(markerDiv);
@@ -130,7 +147,7 @@ async function renderMarkers(map, path, block, contentDiv) {
         const li = document.createElement('li');
         const listAnchor = document.createElement('a');
         listAnchor.href = anchor.href;
-        listAnchor.innerHTML = `<span>${locationData['data-city']}</span> <span> ${lookupState(locationData['data-state'])}</span>`;
+        listAnchor.innerHTML = ` <span> ${locationData['data-state']}</span> <span>${locationData['data-city']}</span>`;
         li.append(listAnchor);
         list.append(li);
       });
