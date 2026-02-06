@@ -94,6 +94,10 @@ async function renderMarkers(map, path) {
         markerDiv.classList.add('location-marker-container');
         markerDiv.style = `left: ${markerPosition.left}; top: ${markerPosition.top};`;
 
+        const anchor = document.createElement('a');
+        anchor.classList.add('location-link');
+        anchor.href = `https://www.greatwolf.com${locationData.href.startsWith('/') ? locationData.href : `/${locationData.href}`}`;
+
         const large = document.createElement('div');
         large.classList.add('location-marker');
         const small = document.createElement('div');
@@ -115,7 +119,8 @@ async function renderMarkers(map, path) {
         title.textContent = `${locationData['data-city']}, ${lookupState(locationData['data-state'])}`;
         popup.append(title);
 
-        markerDiv.append(large, small, popup);
+        anchor.append(large, small, popup);
+        markerDiv.append(anchor);
 
         map.append(markerDiv);
       });
