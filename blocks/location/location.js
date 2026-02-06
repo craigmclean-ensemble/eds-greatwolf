@@ -125,7 +125,9 @@ async function renderMarkers(map, path) {
         map.append(markerDiv);
       });
     }
-  } catch {}
+  } catch {
+    console.error('error fetching location json');
+  }
 }
 
 export default function decorate(block) {
