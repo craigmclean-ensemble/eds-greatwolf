@@ -109,6 +109,7 @@ async function renderMarkers(map, path, block, contentDiv) {
         const anchor = document.createElement('a');
         anchor.classList.add('location-link');
         anchor.href = `https://www.greatwolf.com${locationData.href.startsWith('/') ? locationData.href : `/${locationData.href}`}`;
+        anchor.ariaLabel = `Visit Great Wolf ${locationData['data-city']}`;
 
         const large = document.createElement('div');
         large.classList.add('location-marker');
