@@ -97,6 +97,7 @@ async function renderMarkers(map, path) {
         const anchor = document.createElement('a');
         anchor.classList.add('location-link');
         anchor.href = `https://www.greatwolf.com${locationData.href.startsWith('/') ? locationData.href : `/${locationData.href}`}`;
+        anchor.ariaLabel = `Visit Great Wolf ${locationData['data-city']}`;
 
         const large = document.createElement('div');
         large.classList.add('location-marker');
@@ -111,6 +112,7 @@ async function renderMarkers(map, path) {
           img.classList.add('popup-image');
           img.src = `${locationData.image}?width=300&format=webply&optimize=medium`;
           img.alt = locationData['data-city'] || 'Lodge Image';
+          img.loading = 'lazy';
           popup.append(img);
         }
 
