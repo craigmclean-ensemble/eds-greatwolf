@@ -1,6 +1,148 @@
+.promotion-wrapper {
+  max-width: 1200px;
+
+  @media (width >= 1024px) {
+    padding: 0 !important;
+  }
+}
+
 .promotion.block {
   > div {
     display: flex;
-    flex-direction: row;
+    flex-flow: column-reverse wrap-reverse;
+    align-items: center;
+    justify-content: center;
+
+    @media (width >= 768px) {
+      width: auto;
+      flex-direction: column;
+    }
+
+    @media (width >= 1024px) {
+      width: auto;
+      flex-flow: row nowrap;
+    }
+  }
+
+  .text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: var(--dark-color);
+    width: 100%;
+
+    @media (width >= 1024px) {
+      flex: 1;
+      margin: 0 18px 18px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 32px;
+      line-height: 1;
+      margin-bottom: 24px;
+
+      @media (width >= 1024px) {
+        font-size: 48px;
+      }
+    }
+
+    p {
+      margin: 0;
+      font-size: 18px;
+      margin-bottom: 16px;
+
+      @media (width >= 1024px) {
+        font-size: 24px;
+      }
+    }
+
+    .button-container {
+      width: 100%;
+
+      @media (width >= 768px) {
+        width: auto;
+      }
+
+      a {
+        background-color: var(--button-dark-variant);
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--button-dark-variant-text);
+        padding: 20px 20px 20px 40px;
+        border-width: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          background-color 0.2s,
+          padding 0.2s ease-in-out;
+        text-decoration: none;
+        width: 100%;
+
+        @media (width >= 768px) {
+          width: auto;
+        }
+
+        span {
+          position: relative;
+          display: flex;
+          align-items: center;
+
+          &::after {
+            content: '';
+            display: inline-block;
+            min-width: 20px;
+            height: 16px;
+            /* stylelint-disable-next-line property-no-vendor-prefix */
+            -webkit-mask-image: url('../../icons/arrow.svg');
+            mask-image: url('../../icons/arrow.svg');
+            mask-repeat: no-repeat;
+            mask-size: contain;
+            mask-position: right;
+            align-self: center;
+            background-color: currentcolor;
+            opacity: 0;
+            margin-left: 0;
+            transition: all 0.2s ease-in-out;
+          }
+        }
+
+        &:hover {
+          background-color: var(--button-dark-variant-hover);
+          padding: 20px 20px 20px 30px;
+
+          span::after {
+            opacity: 1;
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  .img-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 8px;
+
+    @media (width >= 1024px) {
+      flex: 1;
+      margin: 0 18px 18px;
+    }
+
+    picture {
+      width: 70%;
+
+      @media (width >= 1024px) {
+        width: auto;
+      }
+    }
+
+    img {
+      border-radius: 10px;
+    }
   }
 }
