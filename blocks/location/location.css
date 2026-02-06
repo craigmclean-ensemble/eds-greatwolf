@@ -132,11 +132,24 @@
       }
     }
 
-    &:hover .marker-popup {
-      opacity: 1;
-      visibility: visible;
-      transform: translateX(-50%) translateY(0);
-      pointer-events: auto;
+    @media (width >= 768px) {
+      &:hover .marker-popup {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+        pointer-events: auto;
+      }
+    }
+
+    @media (width < 768px) {
+      .marker-popup {
+        display: none;
+        pointer-events: none;
+      }
+
+      .location-link {
+        pointer-events: none;
+      }
     }
   }
 }
