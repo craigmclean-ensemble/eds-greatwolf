@@ -76,13 +76,16 @@ function getMarkerPosition({ x = 0, y = 0 }) {
   };
 }
 
-async function renderMarkers(map, path) {
+async function renderMarkers(map, path, block, contentDiv) {
   try {
     const resp = await fetch(path);
 
     if (resp.ok) {
       const json = await resp.json();
       const markers = json.data;
+
+      const list = document.createElement('ul');
+      list.classList.add('location-list');
 
       markers.forEach((locationData) => {
         const markerPosition = getMarkerPosition({
@@ -97,7 +100,6 @@ async function renderMarkers(map, path) {
         const anchor = document.createElement('a');
         anchor.classList.add('location-link');
         anchor.href = `https://www.greatwolf.com${locationData.href.startsWith('/') ? locationData.href : `/${locationData.href}`}`;
-        anchor.ariaLabel = `Visit Great Wolf ${locationData['data-city']}`;
 
         const large = document.createElement('div');
         large.classList.add('location-marker');
@@ -123,42 +125,55 @@ async function renderMarkers(map, path) {
 
         anchor.append(large, small, popup);
         markerDiv.append(anchor);
-
         map.append(markerDiv);
+
+        const li = document.createElement('li');
+        const listAnchor = document.createElement('a');
+        listAnchor.href = anchor.href;
+        listAnchor.innerHTML = `<span>${locationData['data-city']}</span> <span> ${lookupState(locationData['data-state'])}</span>`;
+        li.append(listAnchor);
+        list.append(li);
       });
+
+      contentDiv.append(list);
+      block.replaceChildren(contentDiv);
     }
-  } catch {
-    console.error('error fetching location json');
+  } catch (err) {
+    console.error('error fetching location json', err);
   }
 }
 
 export default function decorate(block) {
-  const ul = document.createElement('div');
+  const contentDiv = document.createElement('div');
   let dataURL = '';
+
   [...block.children].forEach((row) => {
     const li = document.createElement('div');
-
     const link = row.querySelector('a');
 
-    if (link) {
+    if (link && link.href.includes('.json')) {
       dataURL = link.href;
       row.remove();
       return;
     }
 
     while (row.firstElementChild) li.append(row.firstElementChild);
-    ul.append(li);
+    contentDiv.append(li);
   });
 
-  ul.querySelectorAll('picture > img').forEach((img) =>
-    img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '1024' }]))
-  );
+  // Optimize Images
+  contentDiv
+    .querySelectorAll('picture > img')
+    .forEach((img) =>
+      img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '1024' }]))
+    );
 
-  const picture = ul.querySelector('picture');
-  const parentDiv = picture.closest('div');
-  parentDiv?.classList.add('location-map');
-
-  renderMarkers(parentDiv, dataURL);
-
-  block.replaceChildren(ul);
+  const picture = contentDiv.querySelector('picture');
+  const parentDiv = picture?.closest('div');
+  if (parentDiv) {
+    parentDiv.classList.add('location-map');
+    renderMarkers(parentDiv, dataURL, block, contentDiv);
+  } else {
+    block.replaceChildren();
+  }
 }
