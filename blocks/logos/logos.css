@@ -1,0 +1,28 @@
+.logos-wrapper {
+  padding: 40px;
+}
+
+.logos.block {
+  overflow: hidden;
+  width: 100%;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    @media (width < 1024px) {
+      align-items: center;
+
+      div:nth-child(2) {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+  }
+
+  img {
+    margin-bottom: 24px;
+  }
+}
