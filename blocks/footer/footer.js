@@ -20,17 +20,35 @@ export default async function decorate(block) {
   if (linksBlock) {
     const divs = [...linksBlock.children];
 
-    if (divs.length === 5) {
-      const col1 = document.createElement('div');
-      const col2 = document.createElement('div');
-      const col3 = document.createElement('div');
+    const columns = [document.createElement('div'), document.createElement('div'), document.createElement('div')];
+    columns[0].append(divs[0]);
+    columns[1].append(divs[1], divs[2]);
+    columns[2].append(divs[3], divs[4]);
 
-      col1.append(divs[0]);
-      col2.append(divs[1], divs[2]);
-      col3.append(divs[3], divs[4]);
+    linksBlock.replaceChildren(...columns);
 
-      linksBlock.replaceChildren(col1, col2, col3);
-    }
+    // Add toggle functionality for mobile
+    linksBlock.querySelectorAll(':scope > div > div').forEach((section) => {
+      const title = section.querySelector('p');
+      if (title) {
+        // Create a wrapper for the title and button
+        const header = document.createElement('div');
+        header.classList.add('section-header');
+
+        const button = document.createElement('button');
+        button.classList.add('section-toggle');
+        button.ariaLabel = 'Toggle List';
+
+        // Move title into header and add button
+        title.before(header);
+        header.append(title, button);
+
+        header.addEventListener('click', () => {
+          const isOpen = section.classList.toggle('is-open');
+          button.setAttribute('aria-expanded', isOpen);
+        });
+      }
+    });
   }
 
   block.append(footer);
