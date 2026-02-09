@@ -68,6 +68,7 @@
 
         img {
           height: 430px;
+          aspect-ratio: 1200 / 675;
         }
       }
     }
