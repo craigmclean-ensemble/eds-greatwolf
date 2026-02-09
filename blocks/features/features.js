@@ -23,8 +23,8 @@ export default function decorate(block) {
             createOptimizedPicture(img.src, img.alt, false, [
               { media: '(max-width: 1024px)', width: '600' },
               { width: '1200' },
-              img?.width,
-              img?.height,
+              1200,
+              675,
             ])
           )
       );
