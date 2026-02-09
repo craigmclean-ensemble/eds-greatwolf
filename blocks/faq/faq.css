@@ -1,0 +1,119 @@
+.faq.block {
+  overflow: hidden;
+  width: 100%;
+
+  h3 {
+    font-size: 48px;
+    color: var(--dark-color);
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    strong {
+      display: block;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--dark-color);
+      padding-left: 32px;
+
+      @media (width < 1024px) {
+        font-size: 16px;
+      }
+    }
+
+    li {
+      padding: 18px 0 16px;
+      border: solid 1px rgb(204 222 216);
+      border-width: 1px 0;
+
+      > div:last-child {
+        display: none;
+
+        p {
+          margin-top: 10px;
+          margin-bottom: 16px;
+          padding: 0 104px;
+          font-size: 18px;
+          font-weight: 500;
+          color: rgb(28 55 80);
+
+          @media (width < 1024px) {
+            padding: 0 32px;
+            font-size: 16px;
+          }
+        }
+
+        &.is-open {
+          display: block;
+        }
+      }
+
+      .section-toggle {
+        width: 24px;
+        height: 24px;
+        background: transparent;
+        position: relative;
+        cursor: pointer;
+        border: solid 1px rgb(207 0 0);
+        margin: 0;
+        padding: 0;
+        transition: transform 0.5s ease-in-out;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 14px;
+          height: 1px;
+          background-color: rgb(207 0 0);
+          transform: translate(-50%, -50%);
+          transition:
+            transform 0.5s ease-in-out,
+            opacity 0.3s;
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 1px;
+          height: 14px;
+          background-color: rgb(207 0 0);
+          transform: translate(-50%, -50%);
+          transition:
+            transform 0.5s ease-in-out,
+            opacity 0.3s;
+        }
+
+        &[aria-expanded='true'] {
+          transform: rotate(180deg);
+
+          &::after {
+            transform: translate(-50%, -50%);
+            opacity: 0;
+          }
+
+          &::before {
+            transform: translate(-50%, -50%);
+          }
+        }
+      }
+
+      .section-header {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      a {
+        font-weight: 700;
+        text-decoration: none;
+        color: rgb(0 132 137);
+      }
+    }
+  }
+}
