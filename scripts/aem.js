@@ -20,10 +20,11 @@ function sampleRUM(checkpoint, data) {
       sampleRUM.enhance = () => {};
       const params = new URLSearchParams(window.location.search);
       const { currentScript } = document;
-      const rate = params.get('rum')
-        || window.SAMPLE_PAGEVIEWS_AT_RATE
-        || params.get('optel')
-        || (currentScript && currentScript.dataset.rate);
+      const rate =
+        params.get('rum') ||
+        window.SAMPLE_PAGEVIEWS_AT_RATE ||
+        params.get('optel') ||
+        (currentScript && currentScript.dataset.rate);
       const rateValue = {
         on: 1,
         off: 0,
@@ -32,8 +33,7 @@ function sampleRUM(checkpoint, data) {
       }[rate];
       const weight = rateValue !== undefined ? rateValue : 100;
       const id = (window.hlx.rum && window.hlx.rum.id) || crypto.randomUUID().slice(-9);
-      const isSelected = (window.hlx.rum && window.hlx.rum.isSelected)
-        || (weight > 0 && Math.random() * weight < 1);
+      const isSelected = (window.hlx.rum && window.hlx.rum.isSelected) || (weight > 0 && Math.random() * weight < 1);
       // eslint-disable-next-line object-curly-newline, max-len
       window.hlx.rum = {
         weight,
@@ -102,16 +102,12 @@ function sampleRUM(checkpoint, data) {
             t: time,
             ...pingData,
           });
-          const urlParams = window.RUM_PARAMS
-            ? new URLSearchParams(window.RUM_PARAMS).toString() || ''
-            : '';
+          const urlParams = window.RUM_PARAMS ? new URLSearchParams(window.RUM_PARAMS).toString() || '' : '';
           const { href: url, origin } = new URL(
             `.rum/${weight}${urlParams ? `?${urlParams}` : ''}`,
-            sampleRUM.collectBaseURL,
+            sampleRUM.collectBaseURL
           );
-          const body = origin === window.location.origin
-            ? new Blob([rumData], { type: 'application/json' })
-            : rumData;
+          const body = origin === window.location.origin ? new Blob([rumData], { type: 'application/json' }) : rumData;
           navigator.sendBeacon(url, body);
           // eslint-disable-next-line no-console
           console.debug(`ping:${ck}`, pingData);
@@ -129,7 +125,7 @@ function sampleRUM(checkpoint, data) {
           }
           script.src = new URL(
             `.rum/@adobe/helix-rum-enhancer@${enhancerVersion || '^2'}/src/index.js`,
-            sampleRUM.baseURL,
+            sampleRUM.baseURL
           ).href;
           document.head.appendChild(script);
         };
@@ -186,10 +182,10 @@ function init() {
 function toClassName(name) {
   return typeof name === 'string'
     ? name
-      .toLowerCase()
-      .replace(/[^0-9a-z]/gi, '-')
-      .replace(/-+/g, '-')
-      .replace(/^-|-$/g, '')
+        .toLowerCase()
+        .replace(/[^0-9a-z]/gi, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '')
     : '';
 }
 
@@ -298,9 +294,7 @@ async function loadScript(src, attrs) {
  */
 function getMetadata(name, doc = document) {
   const attr = name && name.includes(':') ? 'property' : 'name';
-  const meta = [...doc.head.querySelectorAll(`meta[${attr}="${name}"]`)]
-    .map((m) => m.content)
-    .join(', ');
+  const meta = [...doc.head.querySelectorAll(`meta[${attr}="${name}"]`)].map((m) => m.content).join(', ');
   return meta || '';
 }
 
@@ -316,7 +310,7 @@ function createOptimizedPicture(
   src,
   alt = '',
   eager = false,
-  breakpoints = [{ media: '(min-width: 600px)', width: '2000' }, { width: '750' }],
+  breakpoints = [{ media: '(min-width: 600px)', width: '2000' }, { width: '750' }]
 ) {
   const url = new URL(src, window.location.href);
   const picture = document.createElement('picture');
@@ -371,20 +365,7 @@ function decorateTemplateAndTheme() {
  * @param {Element} block the block element
  */
 function wrapTextNodes(block) {
-  const validWrappers = [
-    'P',
-    'PRE',
-    'UL',
-    'OL',
-    'PICTURE',
-    'TABLE',
-    'H1',
-    'H2',
-    'H3',
-    'H4',
-    'H5',
-    'H6',
-  ];
+  const validWrappers = ['P', 'PRE', 'UL', 'OL', 'PICTURE', 'TABLE', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
 
   const wrap = (el) => {
     const wrapper = document.createElement('p');
@@ -394,13 +375,14 @@ function wrapTextNodes(block) {
 
   block.querySelectorAll(':scope > div > div').forEach((blockColumn) => {
     if (blockColumn.hasChildNodes()) {
-      const hasWrapper = !!blockColumn.firstElementChild
-        && validWrappers.some((tagName) => blockColumn.firstElementChild.tagName === tagName);
+      const hasWrapper =
+        !!blockColumn.firstElementChild &&
+        validWrappers.some((tagName) => blockColumn.firstElementChild.tagName === tagName);
       if (!hasWrapper) {
         wrap(blockColumn);
       } else if (
-        blockColumn.firstElementChild.tagName === 'PICTURE'
-        && (blockColumn.children.length > 1 || !!blockColumn.textContent.trim())
+        blockColumn.firstElementChild.tagName === 'PICTURE' &&
+        (blockColumn.children.length > 1 || !!blockColumn.textContent.trim())
       ) {
         wrap(blockColumn);
       }
@@ -424,19 +406,19 @@ function decorateButtons(element) {
           up.classList.add('button-container');
         }
         if (
-          up.childNodes.length === 1
-          && up.tagName === 'STRONG'
-          && twoup.childNodes.length === 1
-          && twoup.tagName === 'P'
+          up.childNodes.length === 1 &&
+          up.tagName === 'STRONG' &&
+          twoup.childNodes.length === 1 &&
+          twoup.tagName === 'P'
         ) {
           a.className = 'button primary';
           twoup.classList.add('button-container');
         }
         if (
-          up.childNodes.length === 1
-          && up.tagName === 'EM'
-          && twoup.childNodes.length === 1
-          && twoup.tagName === 'P'
+          up.childNodes.length === 1 &&
+          up.tagName === 'EM' &&
+          twoup.childNodes.length === 1 &&
+          twoup.tagName === 'P'
         ) {
           a.className = 'button secondary';
           twoup.classList.add('button-container');
@@ -518,6 +500,10 @@ function decorateSections(main) {
       sectionMeta.parentNode.remove();
     }
   });
+
+  document.querySelectorAll('.section[data-id]').forEach((section) => {
+    section.id = section.getAttribute('data-id') || '';
+  });
 }
 
 /**
@@ -565,9 +551,7 @@ async function loadBlock(block) {
       const decorationComplete = new Promise((resolve) => {
         (async () => {
           try {
-            const mod = await import(
-              `${window.hlx.codeBasePath}/blocks/${blockName}/${blockName}.js`
-            );
+            const mod = await import(`${window.hlx.codeBasePath}/blocks/${blockName}/${blockName}.js`);
             if (mod.default) {
               await mod.default(block);
             }

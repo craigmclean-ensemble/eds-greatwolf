@@ -13,7 +13,7 @@
 :root {
   /* colors */
   --background-color: white;
-  --light-color: #f8f8f8;
+  --light-color: rgb(239 238 234);
   --dark-color: #1c3750;
   --text-color: #131313;
   --link-color: #3b63fb;
