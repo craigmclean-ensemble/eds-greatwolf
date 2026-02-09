@@ -1,0 +1,217 @@
+.features-container.section {
+  background-color: var(--dark-color);
+  margin-bottom: 0;
+  padding: 40px 0;
+}
+
+.features.block {
+  overflow: hidden;
+  width: 100%;
+  color: white;
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 1024px;
+      font-size: 16px;
+      margin: 0 60px;
+
+      @media (width > 1024px) {
+        width: min-content;
+      }
+
+      strong {
+        line-height: 24px;
+        font-weight: 500;
+      }
+
+      h2 {
+        font-family: sigmar, sans-serif;
+        font-size: 48px;
+        line-height: 1;
+        font-weight: 700;
+        margin-bottom: 24px;
+        white-space: nowrap;
+
+        @media (width > 1024px) {
+          font-size: 64px;
+        }
+
+        @media (width > 1200px) {
+          font-size: 96px;
+        }
+      }
+    }
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-top: 32px;
+
+    @media (width > 1024px) {
+      grid-template-columns: 1fr 1fr;
+
+      > div:first-child {
+        grid-area: 1 / span 2;
+        max-height: 430px;
+        height: 430px;
+        overflow: hidden;
+
+        img {
+          height: 430px;
+        }
+      }
+    }
+
+    > div {
+      display: grid;
+      grid-template-columns: 1fr;
+      position: relative;
+      width: 100%;
+      max-height: 222px;
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid #436075;
+
+      @media (width > 1024px) {
+        max-height: 100%;
+      }
+
+      > div {
+        grid-area: 1 / 1;
+      }
+
+      img {
+        display: block;
+        width: 100%;
+        height: auto;
+        height: 222px;
+        object-fit: cover;
+
+        @media (width > 1024px) {
+          height: auto;
+        }
+      }
+
+      > div:first-child {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        background: linear-gradient(to top, rgb(0 0 0 / 70%), transparent);
+        z-index: 2;
+      }
+
+      .titles-wrapper {
+        z-index: 3;
+        align-self: end;
+        color: white;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 16px;
+        grid-row: 1;
+        grid-column: 1;
+
+        p:first-of-type {
+          margin: 0;
+          font-size: 20px;
+          font-family: montserrat, sans-serif;
+          color: #f2d997;
+        }
+
+        h2 {
+          margin: 0;
+          font-family: sigmar, sans-serif;
+          font-size: 40px;
+          line-height: 1;
+        }
+      }
+
+      .button-container {
+        z-index: 3;
+        grid-row: 2;
+        grid-column: 2;
+        align-self: end;
+        padding: 16px;
+        margin: 0;
+        line-height: 1;
+
+        > a {
+          background-color: var(--button-light-variant);
+          font-size: 16px;
+          font-weight: 700;
+          color: var(--dark-color);
+          padding: 20px 20px 20px 40px;
+          border-width: 0;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          transition:
+            background-color 0.2s,
+            padding 0.2s ease-in-out;
+          text-decoration: none;
+          width: 100%;
+          margin: 0;
+
+          @media (width >= 768px) {
+            width: auto;
+          }
+
+          @media (width < 1024px) {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            padding: 0;
+            background-image: url('../../icons/openMapMobile.svg');
+          }
+
+          span {
+            position: relative;
+            display: flex;
+            align-items: center;
+
+            &::after {
+              content: '';
+              display: inline-block;
+              min-width: 20px;
+              height: 16px;
+              /* stylelint-disable-next-line property-no-vendor-prefix */
+              -webkit-mask-image: url('../../icons/arrow.svg');
+              mask-image: url('../../icons/arrow.svg');
+              mask-repeat: no-repeat;
+              mask-size: contain;
+              mask-position: right;
+              align-self: center;
+              background-color: currentcolor;
+              opacity: 0;
+              margin-left: 0;
+              transition: all 0.2s ease-in-out;
+            }
+
+            @media (width < 1024px) {
+              display: none;
+            }
+          }
+
+          &:hover {
+            background-color: var(--button-light-variant-hover);
+            padding: 20px 20px 20px 30px;
+
+            span::after {
+              opacity: 1;
+              margin-left: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
