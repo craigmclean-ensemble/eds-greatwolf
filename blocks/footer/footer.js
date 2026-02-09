@@ -16,5 +16,22 @@ export default async function decorate(block) {
   const footer = document.createElement('div');
   while (fragment.firstElementChild) footer.append(fragment.firstElementChild);
 
+  const linksBlock = footer.querySelector('.links.block');
+  if (linksBlock) {
+    const divs = [...linksBlock.children];
+
+    if (divs.length === 5) {
+      const col1 = document.createElement('div');
+      const col2 = document.createElement('div');
+      const col3 = document.createElement('div');
+
+      col1.append(divs[0]);
+      col2.append(divs[1], divs[2]);
+      col3.append(divs[3], divs[4]);
+
+      linksBlock.replaceChildren(col1, col2, col3);
+    }
+  }
+
   block.append(footer);
 }
