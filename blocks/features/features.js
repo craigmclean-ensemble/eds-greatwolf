@@ -17,7 +17,16 @@ export default function decorate(block) {
     row
       .querySelectorAll('picture > img')
       .forEach((img) =>
-        img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '1024' }]))
+        img
+          .closest('picture')
+          .replaceWith(
+            createOptimizedPicture(img.src, img.alt, false, [
+              { media: '(max-width: 1024px)', width: '600' },
+              { width: '1200' },
+              img?.width,
+              img?.height,
+            ])
+          )
       );
 
     const textContainer = row.querySelector('div:first-child');

@@ -310,8 +310,12 @@ function createOptimizedPicture(
   src,
   alt = '',
   eager = false,
-  breakpoints = [{ media: '(min-width: 600px)', width: '2000' }, { width: '750' }]
+  breakpoints = [{ media: '(min-width: 600px)', width: '2000' }, { width: '750' }],
+  width = null,
+  height = null
 ) {
+  console.log(`${src} - w: ${width} h: ${height}`);
+
   const url = new URL(src, window.location.href);
   const picture = document.createElement('picture');
   const { pathname } = url;
@@ -337,6 +341,8 @@ function createOptimizedPicture(
       const img = document.createElement('img');
       img.setAttribute('loading', eager ? 'eager' : 'lazy');
       img.setAttribute('alt', alt);
+      if (width) img.setAttribute('width', width);
+      if (height) img.setAttribute('height', height);
       picture.appendChild(img);
       img.setAttribute('src', `${pathname}?width=${br.width}&format=${ext}&optimize=medium`);
     }
