@@ -3,8 +3,15 @@
   width: 100%;
 
   h3 {
-    font-size: 48px;
+    font-family: sigmar, sans-serif;
+    font-size: 32px;
     color: var(--dark-color);
+    text-align: center;
+
+    @media (width > 1024px) {
+      font-size: 48px;
+      white-space: nowrap;
+    }
   }
 
   ul {
@@ -53,6 +60,7 @@
       .section-toggle {
         width: 24px;
         height: 24px;
+        flex-shrink: 0;
         background: transparent;
         position: relative;
         cursor: pointer;

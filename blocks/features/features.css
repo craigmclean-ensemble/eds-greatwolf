@@ -38,10 +38,10 @@
         line-height: 1;
         font-weight: 700;
         margin-bottom: 24px;
-        white-space: nowrap;
 
         @media (width > 1024px) {
           font-size: 64px;
+          white-space: nowrap;
         }
 
         @media (width > 1200px) {
